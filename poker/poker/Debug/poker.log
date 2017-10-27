@@ -1,0 +1,6 @@
+﻿  Source.cpp
+c:\users\51565\onedrive\documents\visual studio 2017\projects\poker\poker\source.cpp(256): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\51565\onedrive\documents\visual studio 2017\projects\poker\poker\source.cpp(550): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\51565\onedrive\documents\visual studio 2017\projects\poker\poker\source.cpp(551): warning C4018: '<': signed/unsigned mismatch
+  poker.vcxproj -> C:\Users\51565\OneDrive\documents\visual studio 2017\Projects\poker\Debug\poker.exe
+  poker.vcxproj -> C:\Users\51565\OneDrive\documents\visual studio 2017\Projects\poker\Debug\poker.pdb (Partial PDB)

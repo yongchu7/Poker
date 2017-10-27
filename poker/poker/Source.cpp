@@ -409,8 +409,10 @@ void poker_hand_suit() {
 		if (checksuit[i] == 5) {
 			flus = true;
 			//pokerfacecheck = true;
-			cout << "You get a Flush and earned $6!" << endl;
-			money = money + 6;
+			if (flus == true) {
+				cout << "You get a Flush and earned $6!" << endl;
+				money = money + 6;
+			}
 			//cout << "now you have $" << money << endl;
 		}
 
@@ -436,8 +438,10 @@ void poker_hand_face() {
 			threeofakind = false;
 			twopair = false;
 			onepair = false;
-			cout << "You get Four of a Kind and earned $25!" << endl;
-			money = money + 25;
+			if (fourofakind == true && threeofakind == false && twopair == false && onepair == false) {
+				cout << "You get Four of a Kind and earned $25!" << endl;
+				money = money + 25;
+			}
 			//cout << "now you have $" << money << endl;
 
 			//break;
@@ -448,8 +452,10 @@ void poker_hand_face() {
 			twopair = false;
 			onepair = false;
 			//pokerfacecheck = false;
-			cout << "You get Three of a Kind and earned $3!" << endl;
-			money = money + 3;
+			if (threeofakind == true && twopair == false && onepair == false) {
+				cout << "You get Three of a Kind and earned $3!" << endl;
+				money = money + 3;
+			}
 			//cout << "now you have $" << money << endl;
 
 			//;
@@ -460,16 +466,20 @@ void poker_hand_face() {
 				twopair = true;
 				onepair = false;
 				//pokerfacecheck = false;
-				cout << "You get two pair and earned $2!" << endl;
-				money = money + 2;
+				if (twopair == true && onepair == false) {
+					cout << "You get two pair and earned $2!" << endl;
+					money = money + 2;
+				}
 				//cout << "now you have $" << money << endl;
 				//break;
 			}
 			else if (pairs == 1) {
 				onepair = true;
 				twopair = false;
-				cout << "You get one pair and earned $1!" << endl;
-				money = money + 1;
+				if (onepair == true && twopair == false) {
+					cout << "You get one pair and earned $1!" << endl;
+					money = money + 1;
+				}
 
 
 			}
@@ -508,8 +518,8 @@ void options() {
 		for (int i = 0; i < 5; i++) {
 			remove_first(hand);
 		}
-		draw_card();
-			hand_card();
+		    draw_card();
+			print_hand();
 			poker_hand_face();
 			poker_hand_suit();
 			//poker_hand_face();
@@ -523,7 +533,8 @@ void options() {
 		poker_hand_face();
 		poker_hand_suit();
 		restart_round();
-
+		draw_card();
+		print_hand();
 		options();
 	}
 	else if (option == "deck") {
@@ -602,11 +613,21 @@ void options() {
 					cout << "error! enter correct option" << endl;
 					break;
 				}
+				//poker_hand_face();
+				//poker_hand_suit();
 			}
+			//poker_hand_face();
+			//poker_hand_suit();
 		}
 		
 		print_hand();
+		poker_hand_face();
+		poker_hand_suit();
+		restart_round();
+		draw_card();
+		print_hand();
 		options();
+		
 
 	}
 	

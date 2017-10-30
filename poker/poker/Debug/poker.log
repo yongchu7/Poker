@@ -1,6 +1,6 @@
 ﻿  Source.cpp
-c:\users\51565\desktop\game-230---project-3---poker\poker\poker\source.cpp(256): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\51565\desktop\game-230---project-3---poker\poker\poker\source.cpp(561): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\51565\desktop\game-230---project-3---poker\poker\poker\source.cpp(562): warning C4018: '<': signed/unsigned mismatch
+c:\users\51565\desktop\game-230---project-3---poker\poker\poker\source.cpp(270): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\51565\desktop\game-230---project-3---poker\poker\poker\source.cpp(630): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\51565\desktop\game-230---project-3---poker\poker\poker\source.cpp(631): warning C4018: '<': signed/unsigned mismatch
   poker.vcxproj -> C:\Users\51565\Desktop\GAME-230---Project-3---Poker\poker\Debug\poker.exe
   poker.vcxproj -> C:\Users\51565\Desktop\GAME-230---Project-3---Poker\poker\Debug\poker.pdb (Partial PDB)

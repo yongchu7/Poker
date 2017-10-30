@@ -17,10 +17,18 @@ using namespace std;
 #endif
 
 int money = 10;
-//bool check[5] = { false, false, false, false, false };
+
+
 void restart_round() {
+
+	//cout << "press any key to continue...";
+	//cin.get();
+	cout << endl;
+	cout << "------------------------------------------------------------------" << endl;
+	cout << endl;
 	money = money - 1;
 	cout << "You pay a $1 ante and now have $" << money << endl;
+	
 }
 void message() {
 
@@ -34,7 +42,7 @@ void message() {
 void check_money() {
 	if (money == 0) {
 		cout << "GAME OVER!" << endl;
-		exit(0);
+		system("pause");
 	}
 }
 
@@ -124,7 +132,7 @@ card get_item(linked_list* list, int index)
 	//return n->c.faces;
 	//return n -> c.suits;
 	return n->c;
-	
+
 }
 
 void remove_first(linked_list* list)
@@ -160,7 +168,7 @@ void remove_item(linked_list* list, int index)
 	delete n;
 }
 
-void del_linked_list(linked_list* list)
+void del_deck(linked_list* list)
 {
 	node* n = list->head;
 	while (n != nullptr)
@@ -182,6 +190,7 @@ linked_list*hand = create_linked_list();
 card c;
 card temp;
 //card hand;
+
 void create_poker() {
 	for (int i = 0; i < 13; i++) {
 		for (int j = 0; j < 4; j++) {
@@ -193,6 +202,11 @@ void create_poker() {
 }
 int num = 0;
 
+void clear_deck() {
+	for (int i = 0; i < 29; i++) {
+		remove_first(list);
+	}
+}
 void print_card(card c) {
 	switch (c.faces) {
 	case 0:
@@ -254,29 +268,37 @@ void print_list() {
 void draw_card() {
 	int index = count_items(list);
 	srand(time(NULL));
+	
 	for (int i = 0; i < 5; i++) {
-		//if (check[i] == false) {
-
 			int in = rand() % (index - i);
-			//get_item(list, in);
 			add_first(hand, get_item(list, in));
 			remove_item(list, in);
-			//print_items(hand);
+			if ((index - i) < 5) {
+				//del_deck(list);
+				remove_first(list);
+				//remove_first(list);
+				create_poker();
 
-			//num++;
-
-			//}
-		//}
+				//remove_first(list);
+				clear_deck();
+				//remove_first(list);
+				//del_deck(list);
+			}
+	
 	}
+
+	
 }
 
 void hand_card() {
 	
-	//print_items(hand);
+	//draw_card();
 	cout << endl;
 	cout << "The deck contains " << count_items(list) << " cards " << endl;
 	cout << endl;
 }
+
+
 
 char letter;
 int value;
@@ -286,10 +308,10 @@ void check_letter() {
 	switch (letter) {
 
 	case 'a':
-			temp = get_item(hand, 0);
-			add_first(list,temp);
-			remove_item(hand, 0);
-			break;
+		temp = get_item(hand, 0);
+		add_first(list,temp);
+		remove_item(hand, 0);
+		break;
 	case 'b':
 		temp = get_item(hand, 1);
 		add_first(list, temp);
@@ -358,51 +380,68 @@ void swap() {
 	cout << "Enter the suit (c,d,h,s) of the card in the deck to swap with:";
 	cin >> suit;
 	check_suit();
+	/*for (int i = 0; i < 52; i++) {
+		if (get_item(list, i).faces = temp.faces+1) {
+			remove_item(list, i);
+		}
+	}*/
 	
-	remove_item(list,(52 - ((temp.faces + 1)  * (temp.suits + 1))));
+	if (52 - ((temp.faces + 1)  * (temp.suits + 1)) > 47) {
+		remove_first(list);
+	}
+	else remove_item(list, (52 - ((temp.faces + 1)  * (temp.suits + 1))));
 	add_last(hand,temp);
 
 }
 int check[15] = {0};
 int checksuit[5] = {0};
 int counter;
-int check_same_suit(int y) {
-	//int counter = 0;
-	//int y;
-	//cin >> y;
-	for (int i = 0; i < 5; i++) {
-		if (get_item(hand, i).suits == (y)) {
-			counter++;
-		}
+void clear_check(){
+	for (int i = 0; i < 15; i++) {
+		check[i] = 0;
 	}
-//return 0;
-	//counter = 0;
-	return counter;
-	//counter = NULL;
-	//cout << coux = nter << endl;
 }
-int check_same_face(int x) {
-	
+
+void clear_checksuit() {
 	for (int i = 0; i < 5; i++) {
-		if (get_item(hand, i).faces == (x)) {
-			counter++;
-		}
+		checksuit[i] = 0;
 	}
-	return counter;
-
 }
-int pairs;
 
-bool fourofakind;
-bool threeofakind;
-bool twopair;
-bool onepair;
-bool flus;
+//int check_same_suit(int y) {
+//	//int counter = 0;
+//	//int y;
+//	//cin >> y;
+//	for (int i = 0; i < 5; i++) {
+//		if (get_item(hand, i).suits == (y)) {
+//			counter++;
+//		}
+//	}
+//	return counter;
+//}
+//int check_same_face(int x) {
+//	
+//	for (int i = 0; i < 5; i++) {
+//		if (get_item(hand, i).faces == (x)) {
+//			counter++;
+//		}
+//	}
+//	return counter;
+//
+//}
+
+int pairs = 0;
+bool fourofakind = true;
+bool threeofakind = true;
+bool twopair = true;
+bool onepair = true;
+bool flus = true;
 void poker_hand_suit() {
 
 	for (int x = 0; x < 5; x++) {
 		checksuit[(get_item(hand, x).suits)]++;
 	}
+
 	for (int i = 0; i < 4; i++) {
 		//counter = 0;
 		//check_same_suit(i);
@@ -423,10 +462,13 @@ void poker_hand_suit() {
 	//t << counter << endl;
 	}
 }
+
 void poker_hand_face() {
+	int pairs = 0;
 	//int counter = 0;
 	for (int x = 0; x < 5; x++) {
 		check[(get_item(hand, x).faces)] ++;
+		//out << check[(get_item(hand, x).faces)] << endl;
 	}
 	for (int j = 0; j < 13; j++) {
 		//counter = 0;
@@ -451,8 +493,9 @@ void poker_hand_face() {
 			threeofakind = true;
 			twopair = false;
 			onepair = false;
+			fourofakind = false;
 			//pokerfacecheck = false;
-			if (threeofakind == true && twopair == false && onepair == false) {
+			if (threeofakind == true && twopair == false && onepair == false && fourofakind == false) {
 				cout << "You get Three of a Kind and earned $3!" << endl;
 				money = money + 3;
 			}
@@ -461,31 +504,47 @@ void poker_hand_face() {
 			//;
 		}
 		else if (check[j] == 2) {
-			pairs++;
-			if (pairs == 2) {
+
+			pairs = pairs + 1;
+
+
+			int pair = pairs;
+			//cout << pairs << endl;
+			if (pair == 2) {
 				twopair = true;
 				onepair = false;
+				fourofakind = false;
+				threeofakind = false;
 				//pokerfacecheck = false;
-				if (twopair == true && onepair == false) {
+				if (twopair == true && onepair == false && fourofakind == false && threeofakind == false) {
 					cout << "You get two pair and earned $2!" << endl;
 					money = money + 2;
 				}
 				//cout << "now you have $" << money << endl;
 				//break;
 			}
-			else if (pairs == 1) {
-				onepair = true;
+			if (pair == 1) {
+				//onepair = true;
 				twopair = false;
+				fourofakind = false;
+				threeofakind = false;
 				if (onepair == true && twopair == false) {
 					cout << "You get one pair and earned $1!" << endl;
 					money = money + 1;
 				}
 
-
 			}
+			else if (pair == 1 && pair == 2) {
+				cout << "You get two pair and earned $2!" << endl;
+				money = money + 2;
+			}
+			//else cout << "no poker hand" << endl;
 		}
+		//else cout << "no poker hand" << endl;
 	}
 }
+
+	
 		//else 
 			//pokerfacecheck = true;
 			//cout << "You don't have poker hand!" << endl;
@@ -514,6 +573,9 @@ void options() {
 
 	}
 	else if (option == "none") {
+		//cout << "I draw 5 new card for you!" << endl;
+		clear_check();
+		clear_checksuit();
 		//linked_list*hand = create_linked_list();
 		for (int i = 0; i < 5; i++) {
 			remove_first(hand);
@@ -522,16 +584,22 @@ void options() {
 			print_hand();
 			poker_hand_face();
 			poker_hand_suit();
+			
 			//poker_hand_face();
+			//conti();
 			restart_round();
-		
+			hand_card();
+			draw_card();
+			print_hand();
 			options();
 	}
 	else if (option == "all") {
-		
+		clear_check();
+		clear_checksuit();
 		hand_card();
 		poker_hand_face();
 		poker_hand_suit();
+		//conti();
 		restart_round();
 		draw_card();
 		print_hand();
@@ -543,15 +611,16 @@ void options() {
 		options();
 	}
 	else if (option == "swap") {
+		clear_check();
+		clear_checksuit();
 		swap();
 		//print_items(hand);
 		print_hand();
-		poker_hand_face();
-		poker_hand_suit();
-		restart_round();
-		cout << endl;
+		//poker_hand_face();
+		//poker_hand_suit();
 		
-		cout << "The deck contains " << count_items(list) << " cards " << endl;
+		//restart_round();
+		hand_card();
 		//draw_card();
 		//hand_card();
 		options();
@@ -563,9 +632,11 @@ void options() {
 			int in = rand() % (index - x);
 			if (option[x] > 96 && option[x] < 102)
 			{
+				clear_check();
+				clear_checksuit();
 				switch (option[x]) {
 				case 97:
-					check[0] = true;
+					//check[0] = true;
 					/*if (check[0] = false){
 					remove_item(hand, 0);
 					add_first(hand, get_item(list, in));
@@ -574,7 +645,7 @@ void options() {
 					add_first(hand, get_item(list, in));
 					break;
 				case 98:
-					check[1] = true;
+					//check[1] = true;
 					/*if (check[1] = false) {
 						remove_item(hand, 1);
 						add_first(hand, get_item(list, in));
@@ -583,7 +654,7 @@ void options() {
 					add_first(hand, get_item(list, in));
 					break;
 				case 99:
-					check[2] = true;
+					//check[2] = true;
 					/*if (check[2] = false) {
 						remove_item(hand, 2);
 						add_first(hand, get_item(list, in));
@@ -592,7 +663,7 @@ void options() {
 					add_first(hand, get_item(list, in));
 					break;
 				case 100:
-					check[3] = true;
+					//check[3] = true;
 					/*if (check[3] = false) {
 						remove_item(hand, 3);
 						add_first(hand, get_item(list, in));
@@ -601,7 +672,7 @@ void options() {
 					add_first(hand, get_item(list, in));
 					break;
 				case 101:
-					check[4] = true;
+					//check[4] = true;
 					/*if (check[4] = false) {
 						remove_item(hand, 4);
 						add_first(hand, get_item(list, in));
@@ -623,7 +694,9 @@ void options() {
 		print_hand();
 		poker_hand_face();
 		poker_hand_suit();
+		//conti();
 		restart_round();
+		//conti();
 		draw_card();
 		print_hand();
 		options();

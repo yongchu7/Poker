@@ -1,5 +1,6 @@
 //GAME 230 - Project 3 - Poker
 //author:Yongtao Chu
+//last update 2017/10/30
 #include <iostream>
 #include <stdio.h>
 #include <ctime>

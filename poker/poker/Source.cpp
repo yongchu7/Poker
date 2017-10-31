@@ -381,19 +381,21 @@ void swap() {
 	cout << "Enter the suit (c,d,h,s) of the card in the deck to swap with:";
 	cin >> suit;
 	check_suit();
-	/*for (int i = 0; i < 52; i++) {
-		if (get_item(list, i).faces = temp.faces+1) {
+	for (int i = 0; i < count_items(list); i++) {
+		if ((get_item(list, i).faces == temp.faces) && (get_item(list, i).suits == temp.suits)) {
 			remove_item(list, i);
+				add_last(hand, temp);
 		}
-	}*/
-	
-	if (52 - ((temp.faces + 1)  * (temp.suits + 1)) > 47) {
+	}
+
+}
+	/*if (52 - ((temp.faces + 1)  * (temp.suits + 1)) > 47) {
 		remove_first(list);
 	}
 	else remove_item(list, (52 - ((temp.faces + 1)  * (temp.suits + 1))));
 	add_last(hand,temp);
 
-}
+}*/
 int check[15] = {0};
 int checksuit[5] = {0};
 int counter;
@@ -517,33 +519,37 @@ void poker_hand_face() {
 				fourofakind = false;
 				threeofakind = false;
 				//pokerfacecheck = false;
-				if (twopair == true && onepair == false && fourofakind == false && threeofakind == false) {
-					cout << "You get two pair and earned $2!" << endl;
-					money = money + 2;
-				}
+				
 				//cout << "now you have $" << money << endl;
 				//break;
 			}
-			if (pair == 1) {
+			else if (pair == 1) {
 				//onepair = true;
 				twopair = false;
 				fourofakind = false;
 				threeofakind = false;
-				if (onepair == true && twopair == false) {
-					cout << "You get one pair and earned $1!" << endl;
-					money = money + 1;
-				}
+				
 
 			}
-			else if (pair == 1 && pair == 2) {
-				cout << "You get two pair and earned $2!" << endl;
-				money = money + 2;
-			}
+			
 			//else cout << "no poker hand" << endl;
 		}
 		//else cout << "no poker hand" << endl;
 	}
+	if (twopair == true && onepair == false && fourofakind == false && threeofakind == false) {
+		cout << "You get two pair and earned $2!" << endl;
+		money = money + 2;
+	}
+	else if (onepair == true && twopair == false) {
+		cout << "You get one pair and earned $1!" << endl;
+		money = money + 1;
+	}
+	/*else if (pair == 1 && pair == 2) {
+		cout << "You get two pair and earned $2!" << endl;
+		money = money + 2;
+	}*/
 }
+
 
 	
 		//else 
